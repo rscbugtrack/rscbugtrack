@@ -24,3 +24,23 @@ class Bugtrack(models.Model):
     def __str__(self):
         return self.title
 
+# yearsofexp = (('i','i',) for i in range(5))
+
+database_choices= (('M','MySql'),('S','Sql'),('O','Oracle'),('Sq','Sqlite3'),('P','PostgreSQL'),)
+class DevProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    key_skills = models.CharField(max_length=100,help_text="Text your keyskil like python, Java or .net Developer")
+    experience = models.PositiveIntegerField(default=0)
+    programing_languages = models.CharField(max_length=100,help_text="List of progrming languages you know..")
+    databases = models.CharField(max_length=2,choices=database_choices)
+    designing = models.CharField(max_length=100,help_text="HTML, CSS, Bootstrap...etc")
+    scripting = models.CharField(max_length=100,help_text="Javascript, Jquery, AngularJS..etc")
+    tools = models.CharField(max_length=100,help_text="Like Pycharm, MySQL workbench...etc")
+
+    # def __str__(self):
+    #     return self.user
+
+
+
+
+

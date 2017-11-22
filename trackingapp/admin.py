@@ -2,15 +2,29 @@ from django.contrib import admin
 
 # Register your models here.
 
-from trackingapp.models import Bugtrack
+from trackingapp.models import Bugtrack,DevProfile
 from django.utils.html import format_html
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
+# @admin.register(User)
+# class UserAdmin(BaseUserAdmin):
+#     pass
+
+@admin.register(DevProfile)
+class DevProfileAdmin(admin.ModelAdmin):
+    list_disaply=['key_skills','experience']
+
+
+
+
 @admin.register(Bugtrack)
 class BugtrackAdmin(admin.ModelAdmin):
-    list_display = ['assigned_to','title','created_on','priority','current_status','final_status','points']
+    list_display = ['assigned_to','title','created_on','priority','current_status','final_status','points','img']
     list_filter = ( 'priority','created_on',)
 
     def img(self,obj):
-        return format_html('<img src="{}" alt="NO IMG"/>'.format(obj.upload_image.url))
+        return format_html('<img src="{}" width=50,height=40 alt="*"/>'.format(obj.upload_image.url))
     img.allow_tags = True
 
     def get_queryset(self, request):
